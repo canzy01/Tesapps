@@ -1,0 +1,103 @@
+<ProxyListItemButton>:
+    height: dp(50)
+    size_hint_y: None
+    on_press: app.root.proxy_list.adapter.selection = [self]
+
+<ProxyManagerRoot>:
+    orientation: 'vertical'
+    padding: dp(10)
+    spacing: dp(10)
+    
+    Label:
+        text: "Proxy Manager"
+        font_size: dp(24)
+        size_hint_y: None
+        height: dp(40)
+    
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: None
+        height: dp(40)
+        
+        Label:
+            text: "Address:"
+            size_hint_x: None
+            width: dp(80)
+            
+        TextInput:
+            id: proxy_address
+            hint_text: "proxy.example.com"
+            multiline: False
+    
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: None
+        height: dp(40)
+        
+        Label:
+            text: "Port:"
+            size_hint_x: None
+            width: dp(80)
+            
+        TextInput:
+            id: proxy_port
+            hint_text: "8080"
+            multiline: False
+            input_filter: 'int'
+    
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: None
+        height: dp(40)
+        
+        Label:
+            text: "Type:"
+            size_hint_x: None
+            width: dp(80)
+            
+        TextInput:
+            id: proxy_type
+            hint_text: "http/socks4/socks5"
+            multiline: False
+    
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: None
+        height: dp(40)
+        spacing: dp(5)
+        
+        Button:
+            text: "Add Proxy"
+            on_press: root.add_proxy()
+        
+        Button:
+            text: "Delete Proxy"
+            on_press: root.delete_proxy()
+    
+    ListView:
+        id: proxy_list
+        size_hint_y: 0.4
+    
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: None
+        height: dp(40)
+        spacing: dp(5)
+        
+        Button:
+            text: "Test Proxy"
+            on_press: root.test_proxy()
+        
+        Button:
+            text: "Connect"
+            on_press: root.connect_proxy()
+        
+        Button:
+            text: "Disconnect"
+            on_press: root.disconnect_proxy()
+    
+    Label:
+        text: root.status_label
+        size_hint_y: None
+        height: dp(30)
+        color: 0, 1, 0, 1 if "Connected" in root.status_label else (1, 0, 0, 1 if "Disconnected" not in root.status_label else (1, 1, 1, 1))
